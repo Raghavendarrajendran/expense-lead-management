@@ -1,0 +1,11 @@
+import api from './axios';
+export const getRoles = () => api.get('/roles');
+export const getRole = (id: string) => api.get(`/roles/${id}`);
+export const createRole = (data: any) => api.post('/roles', data);
+export const updateRole = (id: string, data: any) => api.patch(`/roles/${id}`, data);
+export const deleteRole = (id: string) => api.delete(`/roles/${id}`);
+export const getRolePermissions = (id: string) => api.get(`/roles/${id}/permissions`);
+export const setRolePermissions = (id: string, permissions: any[]) => api.put(`/roles/${id}/permissions`, { permissions });
+export const getModules = () => api.get('/roles/modules');
+export const getRoleLimit = (id: string) => api.get(`/roles/${id}/limits`);
+export const updateRoleLimit = (id: string, data: any) => api.put(`/roles/${id}/limits`, data);
