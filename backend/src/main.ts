@@ -28,7 +28,7 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
 
   const port = process.env.PORT || 3001;
-  await app.listen(port);
+  await app.listen(port, '0.0.0.0');
   console.log(`🚀 ZSmart Backend running on http://localhost:${port}/api`);
   console.log(`\n📋 Default Login Credentials:`);
   console.log(`  Admin:          admin@zsmart.com    / Admin@123`);
