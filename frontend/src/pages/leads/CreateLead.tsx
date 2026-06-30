@@ -17,14 +17,14 @@ export const CreateLead = () => {
     mobile: '',
     email: '',
     customerType: 'Residential',
-    requirementType: 'Rooftop Solar',
+    requirementType: 'Hardware Integration',
     location: '',
     address: '',
     city: '',
     state: '',
     pincode: '',
-    electricityBillAmount: 0,
-    expectedSolarCapacity: '',
+    projectBudget: 0,
+    projectScale: '',
     leadSource: 'Website',
     assignedExecutiveId: '',
     assignedExecutiveName: '',
@@ -42,7 +42,7 @@ export const CreateLead = () => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: name === 'electricityBillAmount' ? Number(value) : value,
+      [name]: name === 'projectBudget' ? Number(value) : value,
     }));
   };
 
@@ -86,7 +86,7 @@ export const CreateLead = () => {
       <div className="page-header">
         <div className="page-header-left">
           <h1 className="page-title">Create New Lead</h1>
-          <p className="page-subtitle">Add a solar customer prospect into the portal.</p>
+          <p className="page-subtitle">Add a customer prospect into the portal.</p>
         </div>
       </div>
 
@@ -137,7 +137,7 @@ export const CreateLead = () => {
           </div>
 
           <h3 style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: '8px', marginTop: '16px', fontWeight: 700 }}>
-            Solar Requirement Details
+            Project Requirement Details
           </h3>
           <div className="form-grid">
             <div className="form-group">
@@ -149,36 +149,36 @@ export const CreateLead = () => {
               </select>
             </div>
             <div className="form-group">
-              <label className="form-label">Requirement Type</label>
+              <label className="form-label">Project Type</label>
               <select name="requirementType" className="form-select" value={formData.requirementType} onChange={handleChange}>
-                <option value="Rooftop Solar">Rooftop Solar</option>
-                <option value="Ground Mounted">Ground Mounted</option>
-                <option value="Water Pump">Water Pump</option>
-                <option value="EV Charging">EV Charging</option>
+                <option value="Hardware Integration">Hardware Integration</option>
+                <option value="Software Setup">Software Setup</option>
+                <option value="Consulting Service">Consulting Service</option>
+                <option value="Enterprise License">Enterprise License</option>
               </select>
             </div>
           </div>
 
           <div className="form-grid-3">
             <div className="form-group">
-              <label className="form-label">Average Electricity Bill (₹)</label>
+              <label className="form-label">Project Budget (₹)</label>
               <input
                 type="number"
-                name="electricityBillAmount"
+                name="projectBudget"
                 className="form-input"
-                placeholder="3500"
-                value={formData.electricityBillAmount || ''}
+                placeholder="50000"
+                value={formData.projectBudget || ''}
                 onChange={handleChange}
               />
             </div>
             <div className="form-group">
-              <label className="form-label">Expected Capacity (e.g. 5 kW)</label>
+              <label className="form-label">Project Scale (e.g. 5 Units)</label>
               <input
                 type="text"
-                name="expectedSolarCapacity"
+                name="projectScale"
                 className="form-input"
-                placeholder="5 kW"
-                value={formData.expectedSolarCapacity}
+                placeholder="5 Units"
+                value={formData.projectScale}
                 onChange={handleChange}
               />
             </div>

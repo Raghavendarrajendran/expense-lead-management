@@ -12,16 +12,16 @@ export interface SiteVisit {
   siteAddress: string;
   gpsLatitude?: number;
   gpsLongitude?: number;
-  roofType?: string;
-  roofArea?: string;
-  shadowObstacleDetails?: string;
+  projectType?: string;
+  siteArea?: string;
+  obstacleDetails?: string;
   feasibilityStatus: FeasibilityStatus;
-  surveyRemarks?: string;
+  visitRemarks?: string;
   status: SiteVisitStatus;
   photos: string[];
-  meterPhotoUrl?: string;
-  roofPhotoUrl?: string;
-  electricityBillUrl?: string;
+  documentUrl?: string;
+  attachmentUrl?: string;
+  referenceDocUrl?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -38,11 +38,11 @@ export const SITE_VISITS_MOCK: SiteVisit[] = [
     siteAddress: '12, Anna Nagar, Chennai - 600040',
     gpsLatitude: 13.0827,
     gpsLongitude: 80.2707,
-    roofType: 'RCC Flat Roof',
-    roofArea: '800 sq ft',
-    shadowObstacleDetails: 'Water tank on north side — minor shading 8-9 AM',
+    projectType: 'Commercial Space',
+    siteArea: '800 sq ft',
+    obstacleDetails: 'Building structure on north side — minor shadowing 8-9 AM',
     feasibilityStatus: 'Feasible',
-    surveyRemarks: 'Good sun exposure from 9 AM to 5 PM. 5kW system is optimal.',
+    visitRemarks: 'Good space exposure from 9 AM to 5 PM. 5-unit system is optimal.',
     status: 'Completed',
     photos: [],
     createdAt: '2024-07-05T09:00:00Z',
@@ -72,11 +72,11 @@ export const SITE_VISITS_MOCK: SiteVisit[] = [
     visitDate: '2024-06-30',
     visitTime: '09:30',
     siteAddress: '8, Srirangam, Trichy - 620006',
-    roofType: 'Tiled Roof',
-    roofArea: '450 sq ft',
-    shadowObstacleDetails: 'None',
+    projectType: 'Residential Area',
+    siteArea: '450 sq ft',
+    obstacleDetails: 'None',
     feasibilityStatus: 'Feasible',
-    surveyRemarks: '2 kW water pump system suitable.',
+    visitRemarks: '2 unit system suitable.',
     status: 'Completed',
     photos: [],
     createdAt: '2024-06-28T09:00:00Z',

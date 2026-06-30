@@ -1,6 +1,6 @@
-# Aadhan Solar — Platform Walkthrough
+# ZSmart — Platform Walkthrough
 
-This document outlines the implementation, features, and verification of the Aadhan Solar Lead and Expense Management Platform.
+This document outlines the implementation, features, and verification of the ZSmart Lead and Expense Management Platform.
 
 ---
 
@@ -14,29 +14,42 @@ This document outlines the implementation, features, and verification of the Aad
 - Created `InMemoryStore` containing seeded static configurations and sample runtime data arrays.
 - Stubbed out `ZohoService` containing `createZohoRecord`, `updateZohoRecord`, `fetchZohoRecords`, and `deleteZohoRecord` with TODO comments for future Zoho synchronization.
 
-### 2. Modern React.js Portal (Frontend)
-- Bootstrapped React SPA using Vite, TypeScript, Axios, and React Router Dom.
-- Coded a custom Vanilla CSS design system under `src/index.css` using curated solar-orange `#F97316` and deep navy `#1E3A5F` palettes, Inter typography, glassmorphism dashboard cards, and smooth micro-animations.
-- Created `AuthContext` to manage token handshakes and dynamically build sidebar menus using allowed modules.
+### 3. Premium Notification Module & Modern UI Redesign
+- Created a complete **In-App & Email Notification system** from scratch, with triggers across all domains (Leads, Expenses, Approvals, Finance).
+- Redesigned the **Sidebar navigation** with a premium dark gradient theme (`#0B1120 → #111827`), rounded pill navigation items, and glowing active border indicators.
+- Added a **Frosted Glass Navbar** with an animated, type-based Notification bell dropdown (featuring icons 📅, 💸, ✅, 🚨, etc.), unread counters, and instant detail page navigation.
+- **Apache ECharts Migration**: Fully replaced `recharts` with high-performance Apache ECharts across the Dashboard, Lead Reports, and Expense Reports. Features premium color palettes, interactive tooltip formatting, and clean gradient bar effects.
 
 ---
 
 ## 💎 Features Implemented
 
 ### 👤 Role-based Dashboards (5 Variants)
-- **Admin:** Displays user stats, pipeline charts, and categories distribution.
-- **Manager:** Focuses on pipeline funnel, pending approvals, and executive counts.
+- **Admin:** Displays user stats, pipeline stage distribution charts, and category expense allocations.
+- **Manager:** Focuses on pipeline funnel, pending approvals, and category expense charts.
 - **Team Lead:** Tracks team pipelines, scheduled visits, and pending TL approvals.
-- **Field Executive:** Tailored mobile-friendly overview showing today's followups, scheduled site surveys, and reimbursed payouts.
+- **Field Executive:** Tailored mobile-friendly overview showing today's followups, scheduled field visits, and reimbursed payouts.
 - **Finance User:** Reviews approved claims totals, paid reimbursements, and category breakdowns.
+
+### 🔔 Enterprise Notification Ecosystem
+- **Multi-channel Dispatch:** Supports both in-app database-backed alerts and mock console email dispatches.
+- **Background Scheduler:** Scans lead follow-ups every 5 minutes, triggering reminders 1 day before, 1 hour before, and when overdue.
+- **Domain Integrations:** Instantly notifies supervisors on new expense claims, warns executives about status changes, alerts submitters upon approval/rejection/payment, and allows manual Targeted announcements by admins and managers.
+- **Full Notifications Hub:** Displays a history list with priority sorting (Urgent, High, Medium, Low), module filters, mark-as-read, and quick delete controls.
+
+### 📊 Apache ECharts Reporting Engine
+- Migrated all chart elements to **Apache ECharts** for lightweight and clean rendering.
+- Custom gradient fills on bar elements and rounded borders.
+- Formatted hover tooltips with currency formatting (₹) and bold typography.
+- Horizontal category charts and interactive legends.
 
 ### 📋 Lead Management Lifecycle
 - **Create Lead:** Features client-side validation, duplicate mobile/email prevention.
-- **List / Detail:** Allows filtering by status & source, assigning field executives, updating status, and adding remarks timeline logs.
+- **List / Detail:** Allows filtering by status & source, assigning field executives, updating status, and adding remarks timeline logs. Supports generic project budget and project scale fields.
 
-### 📍 Site Visits & Technical Surveys
-- Schedules surveys directly linked to active leads.
-- Interactive survey view allows Field Executives to trigger HTML5 Geolocation to capture GPS latitude/longitude, mock photo attachment uploads (roof, meter, bill), configure roof area, and mark feasibility rating.
+### 📍 Field Visits & Technical Surveys
+- Schedules visits directly linked to active leads.
+- Interactive visit view allows Field Executives to trigger HTML5 Geolocation to capture GPS latitude/longitude, mock photo attachment uploads (site attachment, document attachment, reference document), configure site area, and mark feasibility rating.
 
 ### 💵 Category-specific Expense Claims
 - Field executives can submit reimbursement drafts or live claims.
@@ -60,7 +73,7 @@ This document outlines the implementation, features, and verification of the Aad
 - PDF printer document opens a formatted printing view, triggers browser printing options, and self-closes the tab automatically.
 
 ### 💬 WhatsApp Bot & Notifications
-- Showcase layout added to the **Settings** module, listing instant sync for surveys, expense filing via chats, and manager approval alerts on WhatsApp with a visible `Coming Soon` badge.
+- Showcase layout added to the **Settings** module, listing instant sync for visits, expense filing via chats, and manager approval alerts on WhatsApp with a visible `Coming Soon` badge.
 
 ### 🛡️ Admin User & RBAC Management
 - Admin can configure the global **Permissions Matrix** checking module boxes (Leads, Settings, Reports, etc.) vs actions (view, edit, delete, verify, approve, change_status).

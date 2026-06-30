@@ -30,7 +30,7 @@ export class DashboardService {
       return {
         totalLeads: leads.length,
         assignedLeads: leads.filter(l => l.assignedExecutiveId).length,
-        pendingFollowUps: leads.filter(l => l.status === 'Contacted' || l.status === 'Site Visit Scheduled').length,
+        pendingFollowUps: leads.filter(l => l.status === 'Contacted' || l.status === 'Field Visit Scheduled').length,
         siteVisitsCompleted: this.store.getSiteVisits().filter(s => s.status === 'Completed').length,
         pendingExpenseApprovals: approvals.filter(a => a.currentStage === 'Manager').length,
         leadsByStatus: this.groupBy(leads, 'status'),

@@ -33,7 +33,7 @@ export const Settings = () => {
               <div>
                 <h2 style={{ fontSize: '18px', fontWeight: 800 }}>{user?.name}</h2>
                 <div style={{ color: 'var(--color-primary)', fontWeight: 600, fontSize: '14px' }}>
-                  {user?.designation || 'Solar Professional'}
+                  {user?.designation || 'Enterprise Professional'}
                 </div>
               </div>
             </div>
@@ -58,11 +58,11 @@ export const Settings = () => {
         {/* Application details */}
         <div className="card">
           <h3 style={{ marginBottom: '16px', borderBottom: '1px solid var(--color-border)', paddingBottom: '8px', fontWeight: 700 }}>
-            Aadhan Solar Portal Info
+            ZSmart Portal Info
           </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '14px' }}>
             <p>
-              This Portal is designed for managing Aadhan Solar's onsite surveys, field lead lifecycle, expense allocations, approvals, and accounting payouts.
+              This Portal is designed for managing ZSmart's field visits, customer lead lifecycles, expense allocations, approvals, and accounting payouts.
             </p>
             <div style={{ background: 'var(--color-surface-2)', padding: '12px', borderRadius: '8px', marginTop: '8px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
@@ -79,7 +79,7 @@ export const Settings = () => {
               </div>
             </div>
             <div style={{ fontSize: '11px', color: 'var(--color-text-muted)', textAlign: 'center', marginTop: '12px' }}>
-              Aadhan Solar Inc. © {new Date().getFullYear()} — All Rights Reserved.
+              ZSmart Inc. © {new Date().getFullYear()} — All Rights Reserved.
             </div>
           </div>
         </div>
@@ -92,12 +92,12 @@ export const Settings = () => {
             <span className="badge badge-assigned" style={{ fontSize: '11px', padding: '3px 8px' }}>Coming Soon</span>
           </div>
           <p className="text-muted" style={{ marginBottom: '16px', fontSize: '13.5px' }}>
-            Our upcoming WhatsApp Bot integration will enable Field Executives to log technical site survey images, roof sizes, and travel odometer logs directly via WhatsApp chat.
+            Our upcoming WhatsApp Bot integration will enable Field Executives to log visit data, attachment images, and travel odometer logs directly via WhatsApp chat.
           </p>
           <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
             <div style={{ padding: '12px 16px', background: 'var(--color-surface-2)', borderRadius: '8px', flex: 1, minWidth: '200px' }}>
-              <strong style={{ fontSize: '13px', color: 'var(--color-navy)' }}>⚡ Instant Survey Sync</strong>
-              <p style={{ fontSize: '12px', color: 'var(--color-text-secondary)', marginTop: '4px' }}>Executives can snap and send roof photos to sync them directly to Zoho Creator.</p>
+              <strong style={{ fontSize: '13px', color: 'var(--color-navy)' }}>⚡ Instant Visit Sync</strong>
+              <p style={{ fontSize: '12px', color: 'var(--color-text-secondary)', marginTop: '4px' }}>Executives can snap and send documentation photos to sync them directly to Zoho Creator.</p>
             </div>
             <div style={{ padding: '12px 16px', background: 'var(--color-surface-2)', borderRadius: '8px', flex: 1, minWidth: '200px' }}>
               <strong style={{ fontSize: '13px', color: 'var(--color-navy)' }}>💸 WhatsApp Expense Filing</strong>

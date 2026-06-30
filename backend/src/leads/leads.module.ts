@@ -3,10 +3,12 @@ import { LeadsController } from './leads.controller';
 import { LeadsService } from './leads.service';
 import { InMemoryStore } from '../store/in-memory.store';
 import { AuthModule } from '../auth/auth.module';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 @Module({
-  imports: [AuthModule],
+  imports: [AuthModule, NotificationsModule],
   controllers: [LeadsController],
   providers: [LeadsService, InMemoryStore],
 })
 export class LeadsModule {}
+

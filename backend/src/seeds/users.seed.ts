@@ -22,7 +22,7 @@ export const USERS_SEED: User[] = [
   {
     id: 'usr_admin',
     name: 'Admin User',
-    email: 'admin@aadhansolar.com',
+    email: 'admin@zsmart.com',
     passwordHash: hash('Admin@123'),
     roleId: 'role_admin',
     roleName: 'admin',
@@ -36,7 +36,7 @@ export const USERS_SEED: User[] = [
   {
     id: 'usr_manager',
     name: 'Ravi Kumar',
-    email: 'manager@aadhansolar.com',
+    email: 'manager@zsmart.com',
     passwordHash: hash('Manager@123'),
     roleId: 'role_manager',
     roleName: 'manager',
@@ -50,7 +50,7 @@ export const USERS_SEED: User[] = [
   {
     id: 'usr_teamlead',
     name: 'Priya Singh',
-    email: 'teamlead@aadhansolar.com',
+    email: 'teamlead@zsmart.com',
     passwordHash: hash('Lead@123'),
     roleId: 'role_team_lead',
     roleName: 'team_lead',
@@ -64,7 +64,7 @@ export const USERS_SEED: User[] = [
   {
     id: 'usr_exec',
     name: 'Arjun Das',
-    email: 'exec@aadhansolar.com',
+    email: 'exec@zsmart.com',
     passwordHash: hash('Exec@123'),
     roleId: 'role_field_executive',
     roleName: 'field_executive',
@@ -78,7 +78,7 @@ export const USERS_SEED: User[] = [
   {
     id: 'usr_finance',
     name: 'Meena Sharma',
-    email: 'finance@aadhansolar.com',
+    email: 'finance@zsmart.com',
     passwordHash: hash('Finance@123'),
     roleId: 'role_finance_user',
     roleName: 'finance_user',

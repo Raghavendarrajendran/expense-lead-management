@@ -15,4 +15,5 @@ export const MODULES_SEED: PermissionModule[] = [
   { id: 'mod_users', name: 'User Management', description: 'Create and manage users' },
   { id: 'mod_roles', name: 'Role Management', description: 'Create and manage roles and permissions' },
   { id: 'mod_settings', name: 'Settings', description: 'Application settings' },
+  { id: 'mod_notifications', name: 'Notifications', description: 'In-app and email notifications' },
 ];

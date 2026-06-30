@@ -29,12 +29,12 @@ async function bootstrap() {
 
   const port = process.env.PORT || 3001;
   await app.listen(port);
-  console.log(`🚀 Aadhan Solar Backend running on http://localhost:${port}/api`);
+  console.log(`🚀 ZSmart Backend running on http://localhost:${port}/api`);
   console.log(`\n📋 Default Login Credentials:`);
-  console.log(`  Admin:          admin@aadhansolar.com    / Admin@123`);
-  console.log(`  Manager:        manager@aadhansolar.com  / Manager@123`);
-  console.log(`  Team Lead:      teamlead@aadhansolar.com / Lead@123`);
-  console.log(`  Field Exec:     exec@aadhansolar.com     / Exec@123`);
-  console.log(`  Finance User:   finance@aadhansolar.com  / Finance@123\n`);
+  console.log(`  Admin:          admin@zsmart.com    / Admin@123`);
+  console.log(`  Manager:        manager@zsmart.com  / Manager@123`);
+  console.log(`  Team Lead:      teamlead@zsmart.com / Lead@123`);
+  console.log(`  Field Exec:     exec@zsmart.com     / Exec@123`);
+  console.log(`  Finance User:   finance@zsmart.com  / Finance@123\n`);
 }
 bootstrap();

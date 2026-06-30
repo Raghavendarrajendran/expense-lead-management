@@ -37,8 +37,8 @@ export const SiteVisitList = () => {
     <div className="site-visit-list animate-fade">
       <div className="page-header">
         <div className="page-header-left">
-          <h1 className="page-title">Site Surveys</h1>
-          <p className="page-subtitle">Manage solar feasibility assessments and visits.</p>
+          <h1 className="page-title">Field Visits</h1>
+          <p className="page-subtitle">Manage site feasibility assessments and visits.</p>
         </div>
       </div>
 
@@ -75,7 +75,7 @@ export const SiteVisitList = () => {
             <tbody>
               {visits.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="table-empty">No site visits scheduled.</td>
+                  <td colSpan={7} className="table-empty">No field visits scheduled.</td>
                 </tr>
               ) : (
                 visits.map(visit => (
