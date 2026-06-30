@@ -12,19 +12,19 @@ export interface Lead {
   mobile: string;
   email: string;
   customerType: 'Residential' | 'Commercial' | 'Industrial';
-  requirementType: 'Rooftop Solar' | 'Ground Mounted' | 'Water Pump' | 'EV Charging';
+  requirementType: 'Hardware Integration' | 'Software Setup' | 'Consulting Service' | 'Enterprise License';
   location: string;
   address: string;
   city: string;
   state: string;
   pincode: string;
-  electricityBillAmount: number;
-  expectedSolarCapacity: string;
+  projectBudget: number;
+  projectScale: string;
   leadSource: string;
   assignedExecutiveId: string | null;
   assignedExecutiveName: string | null;
   followUpDate: string | null;
-  status: 'New' | 'Assigned' | 'Contacted' | 'Site Visit Scheduled' | 'Site Survey Completed' | 'Quotation Shared' | 'Negotiation' | 'Converted' | 'Lost';
+  status: 'New' | 'Assigned' | 'Contacted' | 'Field Visit Scheduled' | 'Field Visit Completed' | 'Quotation Shared' | 'Negotiation' | 'Converted' | 'Lost';
   remarks: LeadRemark[];
   createdBy: string;
   createdByName: string;
@@ -39,21 +39,21 @@ export const LEADS_MOCK: Lead[] = [
     mobile: '9876543210',
     email: 'sundar@example.com',
     customerType: 'Residential',
-    requirementType: 'Rooftop Solar',
+    requirementType: 'Hardware Integration',
     location: 'Chennai',
     address: '12, Anna Nagar',
     city: 'Chennai',
     state: 'Tamil Nadu',
     pincode: '600040',
-    electricityBillAmount: 3500,
-    expectedSolarCapacity: '5 kW',
+    projectBudget: 3500,
+    projectScale: '5 Units',
     leadSource: 'Website',
     assignedExecutiveId: 'usr_exec',
     assignedExecutiveName: 'Arjun Das',
     followUpDate: '2024-07-10',
-    status: 'Site Visit Scheduled',
+    status: 'Field Visit Scheduled',
     remarks: [
-      { id: 'rem_001', text: 'Customer interested in 5kW system', addedBy: 'usr_exec', addedByName: 'Arjun Das', createdAt: '2024-07-01T10:00:00Z' },
+      { id: 'rem_001', text: 'Customer interested in 5-unit system', addedBy: 'usr_exec', addedByName: 'Arjun Das', createdAt: '2024-07-01T10:00:00Z' },
     ],
     createdBy: 'usr_manager',
     createdByName: 'Ravi Kumar',
@@ -66,14 +66,14 @@ export const LEADS_MOCK: Lead[] = [
     mobile: '9876543211',
     email: 'preethi@example.com',
     customerType: 'Commercial',
-    requirementType: 'Rooftop Solar',
+    requirementType: 'Hardware Integration',
     location: 'Coimbatore',
     address: '45, RS Puram',
     city: 'Coimbatore',
     state: 'Tamil Nadu',
     pincode: '641002',
-    electricityBillAmount: 18000,
-    expectedSolarCapacity: '25 kW',
+    projectBudget: 18000,
+    projectScale: '25 Units',
     leadSource: 'Reference',
     assignedExecutiveId: 'usr_exec',
     assignedExecutiveName: 'Arjun Das',
@@ -91,14 +91,14 @@ export const LEADS_MOCK: Lead[] = [
     mobile: '9876543212',
     email: 'karthik.ind@example.com',
     customerType: 'Industrial',
-    requirementType: 'Ground Mounted',
+    requirementType: 'Software Setup',
     location: 'Madurai',
     address: 'SIDCO Industrial Estate',
     city: 'Madurai',
     state: 'Tamil Nadu',
     pincode: '625020',
-    electricityBillAmount: 95000,
-    expectedSolarCapacity: '100 kW',
+    projectBudget: 95000,
+    projectScale: '100 Units',
     leadSource: 'Cold Call',
     assignedExecutiveId: null,
     assignedExecutiveName: null,
@@ -116,14 +116,14 @@ export const LEADS_MOCK: Lead[] = [
     mobile: '9876543213',
     email: 'nalini@example.com',
     customerType: 'Residential',
-    requirementType: 'Water Pump',
+    requirementType: 'Consulting Service',
     location: 'Trichy',
     address: '8, Srirangam',
     city: 'Trichy',
     state: 'Tamil Nadu',
     pincode: '620006',
-    electricityBillAmount: 1200,
-    expectedSolarCapacity: '2 kW',
+    projectBudget: 1200,
+    projectScale: '2 Units',
     leadSource: 'Exhibition',
     assignedExecutiveId: 'usr_exec',
     assignedExecutiveName: 'Arjun Das',
@@ -141,14 +141,14 @@ export const LEADS_MOCK: Lead[] = [
     mobile: '9876543214',
     email: 'greenfarms@example.com',
     customerType: 'Commercial',
-    requirementType: 'Ground Mounted',
+    requirementType: 'Software Setup',
     location: 'Salem',
     address: 'Omalur Main Road',
     city: 'Salem',
     state: 'Tamil Nadu',
     pincode: '636455',
-    electricityBillAmount: 42000,
-    expectedSolarCapacity: '50 kW',
+    projectBudget: 42000,
+    projectScale: '50 Units',
     leadSource: 'Social Media',
     assignedExecutiveId: 'usr_exec',
     assignedExecutiveName: 'Arjun Das',

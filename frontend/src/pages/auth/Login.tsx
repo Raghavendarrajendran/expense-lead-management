@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../contexts/AuthContext';
-import { Sun, Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import { Cpu, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 
 export const Login = () => {
   const { login } = useAuth();
@@ -32,12 +32,12 @@ export const Login = () => {
     <div className="login-page">
       <div className="login-card animate-up">
         <div className="login-logo">
-          <div className="login-logo-icon">
-            <Sun size={26} color="#fff" />
+          <div className="login-logo-icon" style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-gold))' }}>
+            <Cpu size={26} color="#fff" />
           </div>
           <div className="login-logo-text">
-            <h1>Aadhan Solar</h1>
-            <p>Management Portal</p>
+            <h1>ZSmart</h1>
+            <p>Management Platform</p>
           </div>
         </div>
 
@@ -53,7 +53,7 @@ export const Login = () => {
                 type="email"
                 className="form-input"
                 style={{ paddingLeft: 36 }}
-                placeholder="you@aadhansolar.com"
+                placeholder="you@zsmart.com"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
@@ -92,11 +92,11 @@ export const Login = () => {
         <div style={{ marginTop: 28, padding: '16px', background: 'var(--color-surface-2)', borderRadius: 'var(--radius-md)', fontSize: 12 }}>
           <p style={{ fontWeight: 700, marginBottom: 8, color: 'var(--color-text-secondary)' }}>Demo Credentials</p>
           {[
-            { role: 'Admin', email: 'admin@aadhansolar.com', pwd: 'Admin@123' },
-            { role: 'Manager', email: 'manager@aadhansolar.com', pwd: 'Manager@123' },
-            { role: 'Team Lead', email: 'teamlead@aadhansolar.com', pwd: 'Lead@123' },
-            { role: 'Field Exec', email: 'exec@aadhansolar.com', pwd: 'Exec@123' },
-            { role: 'Finance', email: 'finance@aadhansolar.com', pwd: 'Finance@123' },
+            { role: 'Admin', email: 'admin@zsmart.com', pwd: 'Admin@123' },
+            { role: 'Manager', email: 'manager@zsmart.com', pwd: 'Manager@123' },
+            { role: 'Team Lead', email: 'teamlead@zsmart.com', pwd: 'Lead@123' },
+            { role: 'Field Exec', email: 'exec@zsmart.com', pwd: 'Exec@123' },
+            { role: 'Finance', email: 'finance@zsmart.com', pwd: 'Finance@123' },
           ].map(c => (
             <div key={c.role} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
               <span style={{ color: 'var(--color-text-muted)', fontWeight: 600 }}>{c.role}:</span>

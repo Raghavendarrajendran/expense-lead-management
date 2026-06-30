@@ -17,14 +17,14 @@ export const EditLead = () => {
     mobile: '',
     email: '',
     customerType: 'Residential',
-    requirementType: 'Rooftop Solar',
+    requirementType: 'Hardware Integration',
     location: '',
     address: '',
     city: '',
     state: '',
     pincode: '',
-    electricityBillAmount: 0,
-    expectedSolarCapacity: '',
+    projectBudget: 0,
+    projectScale: '',
     leadSource: 'Website',
     assignedExecutiveId: '',
     assignedExecutiveName: '',
@@ -44,14 +44,14 @@ export const EditLead = () => {
           mobile: lead.mobile || '',
           email: lead.email || '',
           customerType: lead.customerType || 'Residential',
-          requirementType: lead.requirementType || 'Rooftop Solar',
+          requirementType: lead.requirementType || 'Hardware Integration',
           location: lead.location || '',
           address: lead.address || '',
           city: lead.city || '',
           state: lead.state || '',
           pincode: lead.pincode || '',
-          electricityBillAmount: lead.electricityBillAmount || 0,
-          expectedSolarCapacity: lead.expectedSolarCapacity || '',
+          projectBudget: lead.projectBudget || 0,
+          projectScale: lead.projectScale || '',
           leadSource: lead.leadSource || 'Website',
           assignedExecutiveId: lead.assignedExecutiveId || '',
           assignedExecutiveName: lead.assignedExecutiveName || '',
@@ -70,7 +70,7 @@ export const EditLead = () => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: name === 'electricityBillAmount' ? Number(value) : value,
+      [name]: name === 'projectBudget' ? Number(value) : value,
     }));
   };
 
@@ -166,7 +166,7 @@ export const EditLead = () => {
           </div>
 
           <h3 style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: '8px', marginTop: '16px', fontWeight: 700 }}>
-            Solar Requirement Details
+            Project Requirement Details
           </h3>
           <div className="form-grid">
             <div className="form-group">
@@ -178,34 +178,34 @@ export const EditLead = () => {
               </select>
             </div>
             <div className="form-group">
-              <label className="form-label">Requirement Type</label>
+              <label className="form-label">Project Type</label>
               <select name="requirementType" className="form-select" value={formData.requirementType} onChange={handleChange}>
-                <option value="Rooftop Solar">Rooftop Solar</option>
-                <option value="Ground Mounted">Ground Mounted</option>
-                <option value="Water Pump">Water Pump</option>
-                <option value="EV Charging">EV Charging</option>
+                <option value="Hardware Integration">Hardware Integration</option>
+                <option value="Software Setup">Software Setup</option>
+                <option value="Consulting Service">Consulting Service</option>
+                <option value="Enterprise License">Enterprise License</option>
               </select>
             </div>
           </div>
 
           <div className="form-grid-3">
             <div className="form-group">
-              <label className="form-label">Average Electricity Bill (₹)</label>
+              <label className="form-label">Project Budget (₹)</label>
               <input
                 type="number"
-                name="electricityBillAmount"
+                name="projectBudget"
                 className="form-input"
-                value={formData.electricityBillAmount || ''}
+                value={formData.projectBudget || ''}
                 onChange={handleChange}
               />
             </div>
             <div className="form-group">
-              <label className="form-label">Expected Capacity (e.g. 5 kW)</label>
+              <label className="form-label">Project Scale (e.g. 5 Units)</label>
               <input
                 type="text"
-                name="expectedSolarCapacity"
+                name="projectScale"
                 className="form-input"
-                value={formData.expectedSolarCapacity}
+                value={formData.projectScale}
                 onChange={handleChange}
               />
             </div>

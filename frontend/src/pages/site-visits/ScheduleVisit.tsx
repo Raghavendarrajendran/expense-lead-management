@@ -71,10 +71,10 @@ export const ScheduleVisit = () => {
         assignedExecutiveName: execName || 'Unassigned',
         feasibilityStatus: 'Pending Assessment',
       });
-      toast.success('Site survey scheduled successfully!');
+      toast.success('Field visit scheduled successfully!');
       navigate('/site-visits');
     } catch (err: any) {
-      toast.error(err.response?.data?.message || 'Failed to schedule survey');
+      toast.error(err.response?.data?.message || 'Failed to schedule visit');
     } finally {
       setLoading(false);
     }
@@ -90,8 +90,8 @@ export const ScheduleVisit = () => {
 
       <div className="page-header">
         <div className="page-header-left">
-          <h1 className="page-title">Schedule Site Survey</h1>
-          <p className="page-subtitle">Set up a technical site feasibility survey for a solar lead.</p>
+          <h1 className="page-title">Schedule Field Visit</h1>
+          <p className="page-subtitle">Set up a site feasibility visit for a lead.</p>
         </div>
       </div>
 
@@ -158,7 +158,7 @@ export const ScheduleVisit = () => {
           <div style={{ marginTop: '24px', display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
             <button type="button" className="btn btn-secondary" onClick={() => navigate('/site-visits')}>Cancel</button>
             <button type="submit" className="btn btn-primary" disabled={loading || !selectedLeadId}>
-              <Save size={16} /> {loading ? 'Scheduling...' : 'Schedule Survey'}
+              <Save size={16} /> {loading ? 'Scheduling...' : 'Schedule Visit'}
             </button>
           </div>
         </form>

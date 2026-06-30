@@ -10,7 +10,7 @@ import { InMemoryStore } from '../store/in-memory.store';
   imports: [
     PassportModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'aadhan_solar_jwt_secret_key_2024',
+      secret: process.env.JWT_SECRET || 'zsmart_jwt_secret_key_2026',
       signOptions: { expiresIn: '8h' },
     }),
   ],

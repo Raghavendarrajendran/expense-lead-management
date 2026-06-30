@@ -87,6 +87,7 @@ export class AuthService {
       mod_users:      { id: 'mod_users', label: 'Users', path: '/users', icon: 'UserCog' },
       mod_roles:      { id: 'mod_roles', label: 'Roles & Permissions', path: '/roles', icon: 'ShieldCheck' },
       mod_settings:   { id: 'mod_settings', label: 'Settings', path: '/settings', icon: 'Settings' },
+      mod_notifications: { id: 'mod_notifications', label: 'Notifications', path: '/notifications', icon: 'Bell' },
     };
     return permissions
       .filter(p => p.actions.includes('view'))

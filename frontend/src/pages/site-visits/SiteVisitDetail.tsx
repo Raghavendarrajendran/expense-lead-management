@@ -35,15 +35,15 @@ export const SiteVisitDetail = () => {
         const data = res.data.data;
         setVisit(data);
         setFeasibility(data.feasibilityStatus || 'Pending Assessment');
-        setRemarks(data.surveyRemarks || '');
-        setRoofType(data.roofType || '');
-        setRoofArea(data.roofArea || '');
-        setObstacles(data.shadowObstacleDetails || '');
+        setRemarks(data.visitRemarks || '');
+        setRoofType(data.projectType || '');
+        setRoofArea(data.siteArea || '');
+        setObstacles(data.obstacleDetails || '');
         setLat(data.gpsLatitude || 0);
         setLng(data.gpsLongitude || 0);
-        setRoofPhoto(data.roofPhotoUrl || '');
-        setMeterPhoto(data.meterPhotoUrl || '');
-        setBillPhoto(data.electricityBillUrl || '');
+        setRoofPhoto(data.attachmentUrl || '');
+        setMeterPhoto(data.documentUrl || '');
+        setBillPhoto(data.referenceDocUrl || '');
       })
       .catch(err => console.error(err))
       .finally(() => setLoading(false));
@@ -93,22 +93,22 @@ export const SiteVisitDetail = () => {
     try {
       await updateSiteVisit(id, {
         feasibilityStatus: feasibility,
-        surveyRemarks: remarks,
-        roofType,
-        roofArea,
-        shadowObstacleDetails: obstacles,
+        visitRemarks: remarks,
+        projectType: roofType,
+        siteArea: roofArea,
+        obstacleDetails: obstacles,
         gpsLatitude: lat,
         gpsLongitude: lng,
-        roofPhotoUrl: roofPhoto,
-        meterPhotoUrl: meterPhoto,
-        electricityBillUrl: billPhoto,
+        attachmentUrl: roofPhoto,
+        documentUrl: meterPhoto,
+        referenceDocUrl: billPhoto,
         status: 'Completed',
       });
-      toast.success('Site survey updated successfully');
+      toast.success('Field visit updated successfully');
       setEditing(false);
       fetchVisit();
     } catch (err: any) {
-      toast.error('Failed to update site visit');
+      toast.error('Failed to update field visit');
     }
   };
 
@@ -121,7 +121,7 @@ export const SiteVisitDetail = () => {
   }
 
   if (!visit) {
-    return <div className="card">Site survey not found.</div>;
+    return <div className="card">Field visit not found.</div>;
   }
 
   const canEdit = hasPermission('mod_site_visits', 'edit') &&
@@ -131,18 +131,18 @@ export const SiteVisitDetail = () => {
     <div className="site-visit-detail animate-fade">
       <div style={{ marginBottom: '16px' }}>
         <button className="btn btn-secondary btn-sm" onClick={() => navigate('/site-visits')}>
-          <ArrowLeft size={14} /> Back to Site Surveys
+          <ArrowLeft size={14} /> Back to Field Visits
         </button>
       </div>
 
       <div className="page-header">
         <div>
-          <h1 className="page-title">Site Survey: {visit.customerName}</h1>
+          <h1 className="page-title">Field Visit: {visit.customerName}</h1>
           <p className="page-subtitle">Visit Reference ID: {visit.id} | Scheduled: {visit.visitDate} {visit.visitTime}</p>
         </div>
         {canEdit && !editing && (
           <button className="btn btn-primary" onClick={() => setEditing(true)}>
-            <Edit size={14} /> Update Survey Details
+            <Edit size={14} /> Update Visit Details
           </button>
         )}
       </div>
@@ -184,17 +184,17 @@ export const SiteVisitDetail = () => {
 
               <div className="form-grid">
                 <div className="form-group">
-                  <label className="form-label">Roof Type</label>
+                  <label className="form-label">Project Type</label>
                   <input
                     type="text"
                     className="form-input"
-                    placeholder="e.g. RCC Flat, Tiled, Metal Sheet"
+                    placeholder="e.g. Commercial Space, Residential Area"
                     value={roofType}
                     onChange={e => setRoofType(e.target.value)}
                   />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Roof Area (sq ft)</label>
+                  <label className="form-label">Site Area (sq ft)</label>
                   <input
                     type="text"
                     className="form-input"
@@ -206,18 +206,18 @@ export const SiteVisitDetail = () => {
               </div>
 
               <div className="form-group">
-                <label className="form-label">Shadow / Obstacle Details</label>
+                <label className="form-label">Obstacle Details</label>
                 <input
                   type="text"
                   className="form-input"
-                  placeholder="e.g. Shading from neighboring building, trees..."
+                  placeholder="e.g. Obstacles from neighboring building, trees..."
                   value={obstacles}
                   onChange={e => setObstacles(e.target.value)}
                 />
               </div>
 
               <div className="form-group">
-                <label className="form-label">Survey Remarks</label>
+                <label className="form-label">Visit Remarks</label>
                 <textarea
                   className="form-textarea"
                   placeholder="Add any specific observations..."
@@ -227,14 +227,14 @@ export const SiteVisitDetail = () => {
               </div>
 
               <h3 style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: '8px', marginTop: '16px', fontWeight: 700 }}>
-                Photo Uploads (Simulation)
+                Attachment Uploads (Simulation)
               </h3>
               <div className="form-grid-3">
                 <div className="form-group" style={{ textAlign: 'center' }}>
-                  <label className="form-label">Roof Photo</label>
+                  <label className="form-label">Site Attachment</label>
                   <div style={{ border: '1px dashed var(--color-border)', padding: '16px', borderRadius: '8px' }}>
                     {roofPhoto ? (
-                      <img src={roofPhoto} alt="Roof Preview" style={{ height: '80px', margin: '0 auto 8px', objectFit: 'cover' }} />
+                      <img src={roofPhoto} alt="Site Preview" style={{ height: '80px', margin: '0 auto 8px', objectFit: 'cover' }} />
                     ) : (
                       <Camera size={24} style={{ margin: '0 auto 8px', color: 'var(--color-text-muted)' }} />
                     )}
@@ -244,10 +244,10 @@ export const SiteVisitDetail = () => {
                 </div>
 
                 <div className="form-group" style={{ textAlign: 'center' }}>
-                  <label className="form-label">Meter Photo</label>
+                  <label className="form-label">Document Attachment</label>
                   <div style={{ border: '1px dashed var(--color-border)', padding: '16px', borderRadius: '8px' }}>
                     {meterPhoto ? (
-                      <img src={meterPhoto} alt="Meter Preview" style={{ height: '80px', margin: '0 auto 8px', objectFit: 'cover' }} />
+                      <img src={meterPhoto} alt="Document Preview" style={{ height: '80px', margin: '0 auto 8px', objectFit: 'cover' }} />
                     ) : (
                       <Camera size={24} style={{ margin: '0 auto 8px', color: 'var(--color-text-muted)' }} />
                     )}
@@ -257,10 +257,10 @@ export const SiteVisitDetail = () => {
                 </div>
 
                 <div className="form-group" style={{ textAlign: 'center' }}>
-                  <label className="form-label">Electricity Bill</label>
+                  <label className="form-label">Reference Document</label>
                   <div style={{ border: '1px dashed var(--color-border)', padding: '16px', borderRadius: '8px' }}>
                     {billPhoto ? (
-                      <img src={billPhoto} alt="Bill Preview" style={{ height: '80px', margin: '0 auto 8px', objectFit: 'cover' }} />
+                      <img src={billPhoto} alt="Reference Preview" style={{ height: '80px', margin: '0 auto 8px', objectFit: 'cover' }} />
                     ) : (
                       <FileText size={24} style={{ margin: '0 auto 8px', color: 'var(--color-text-muted)' }} />
                     )}
@@ -273,7 +273,7 @@ export const SiteVisitDetail = () => {
               <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end', marginTop: '20px' }}>
                 <button type="button" className="btn btn-secondary" onClick={() => setEditing(false)}>Cancel</button>
                 <button type="submit" className="btn btn-primary">
-                  <Check size={16} /> Complete Survey
+                  <Check size={16} /> Complete Visit
                 </button>
               </div>
             </form>
@@ -292,22 +292,22 @@ export const SiteVisitDetail = () => {
                   </div>
                 </div>
                 <div>
-                  <div className="text-muted" style={{ fontSize: '11px', fontWeight: 600, textTransform: 'uppercase' }}>Roof Specifications</div>
+                  <div className="text-muted" style={{ fontSize: '11px', fontWeight: 600, textTransform: 'uppercase' }}>Project Specifications</div>
                   <div style={{ fontWeight: 500 }}>
-                    Type: {visit.roofType || 'Not specified'} | Area: {visit.roofArea || 'Not specified'}
+                    Type: {visit.projectType || 'Not specified'} | Area: {visit.siteArea || 'Not specified'}
                   </div>
                 </div>
               </div>
 
               <div style={{ marginBottom: '16px' }}>
-                <div className="text-muted" style={{ fontSize: '11px', fontWeight: 600, textTransform: 'uppercase' }}>Shadow / Obstacle Details</div>
-                <div style={{ fontWeight: 500 }}>{visit.shadowObstacleDetails || 'No shading issues recorded.'}</div>
+                <div className="text-muted" style={{ fontSize: '11px', fontWeight: 600, textTransform: 'uppercase' }}>Obstacle Details</div>
+                <div style={{ fontWeight: 500 }}>{visit.obstacleDetails || 'No shading issues recorded.'}</div>
               </div>
 
               <div style={{ marginBottom: '24px' }}>
-                <div className="text-muted" style={{ fontSize: '11px', fontWeight: 600, textTransform: 'uppercase' }}>Survey Remarks</div>
+                <div className="text-muted" style={{ fontSize: '11px', fontWeight: 600, textTransform: 'uppercase' }}>Visit Remarks</div>
                 <div style={{ padding: '12px', background: 'var(--color-surface-2)', borderRadius: '8px', fontStyle: 'italic' }}>
-                  "{visit.surveyRemarks || 'No remarks added yet.'}"
+                  "{visit.visitRemarks || 'No remarks added yet.'}"
                 </div>
               </div>
 
@@ -316,9 +316,9 @@ export const SiteVisitDetail = () => {
               </h3>
               <div className="form-grid-3">
                 <div>
-                  <div style={{ fontWeight: 600, fontSize: '13px', marginBottom: '6px' }}>Roof Photo</div>
-                  {visit.roofPhotoUrl ? (
-                    <img src={visit.roofPhotoUrl} alt="Roof" style={{ width: '100%', height: '140px', objectFit: 'cover', borderRadius: '8px' }} />
+                  <div style={{ fontWeight: 600, fontSize: '13px', marginBottom: '6px' }}>Site Attachment</div>
+                  {visit.attachmentUrl ? (
+                    <img src={visit.attachmentUrl} alt="Site" style={{ width: '100%', height: '140px', objectFit: 'cover', borderRadius: '8px' }} />
                   ) : (
                     <div style={{ height: '140px', background: 'var(--color-surface-2)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text-muted)' }}>
                       No Photo Uploaded
@@ -327,9 +327,9 @@ export const SiteVisitDetail = () => {
                 </div>
 
                 <div>
-                  <div style={{ fontWeight: 600, fontSize: '13px', marginBottom: '6px' }}>Meter Photo</div>
-                  {visit.meterPhotoUrl ? (
-                    <img src={visit.meterPhotoUrl} alt="Meter" style={{ width: '100%', height: '140px', objectFit: 'cover', borderRadius: '8px' }} />
+                  <div style={{ fontWeight: 600, fontSize: '13px', marginBottom: '6px' }}>Document Attachment</div>
+                  {visit.documentUrl ? (
+                    <img src={visit.documentUrl} alt="Document" style={{ width: '100%', height: '140px', objectFit: 'cover', borderRadius: '8px' }} />
                   ) : (
                     <div style={{ height: '140px', background: 'var(--color-surface-2)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text-muted)' }}>
                       No Photo Uploaded
@@ -338,12 +338,12 @@ export const SiteVisitDetail = () => {
                 </div>
 
                 <div>
-                  <div style={{ fontWeight: 600, fontSize: '13px', marginBottom: '6px' }}>Electricity Bill</div>
-                  {visit.electricityBillUrl ? (
-                    <img src={visit.electricityBillUrl} alt="Electricity Bill" style={{ width: '100%', height: '140px', objectFit: 'cover', borderRadius: '8px' }} />
+                  <div style={{ fontWeight: 600, fontSize: '13px', marginBottom: '6px' }}>Reference Document</div>
+                  {visit.referenceDocUrl ? (
+                    <img src={visit.referenceDocUrl} alt="Reference" style={{ width: '100%', height: '140px', objectFit: 'cover', borderRadius: '8px' }} />
                   ) : (
                     <div style={{ height: '140px', background: 'var(--color-surface-2)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text-muted)' }}>
-                      No Bill Uploaded
+                      No Document Uploaded
                     </div>
                   )}
                 </div>
@@ -355,7 +355,7 @@ export const SiteVisitDetail = () => {
         {/* Lead Reference Details */}
         <div className="card">
           <h3 style={{ marginBottom: '16px', borderBottom: '1px solid var(--color-border)', paddingBottom: '8px', fontWeight: 700 }}>
-            Survey Reference
+            Visit Reference
           </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div>

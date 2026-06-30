@@ -26,6 +26,8 @@ import { EditUser } from '../pages/users/EditUser';
 import { RoleList } from '../pages/roles/RoleList';
 import { PermissionMatrix } from '../pages/roles/PermissionMatrix';
 import { Settings } from '../pages/settings/Settings';
+import { NotificationsList } from '../pages/notifications/NotificationsList';
+import { AnnouncementForm } from '../pages/notifications/AnnouncementForm';
 
 export const AppRouter = () => {
   return (
@@ -76,6 +78,10 @@ export const AppRouter = () => {
 
             {/* Settings */}
             <Route path="/settings" element={<AppLayout><Settings /></AppLayout>} />
+
+            {/* Notifications */}
+            <Route path="/notifications" element={<AppLayout><NotificationsList /></AppLayout>} />
+            <Route path="/notifications/announce" element={<AppLayout><AnnouncementForm /></AppLayout>} />
 
             <Route path="/access-denied" element={<AccessDenied />} />
           </Route>

@@ -4,7 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import {
   LayoutDashboard, Users, MapPin, Receipt, CheckCircle,
   DollarSign, BarChart2, UserCog, ShieldCheck, Settings,
-  Sun, LogOut, X
+  Cpu, LogOut, X, Bell
 } from 'lucide-react';
 
 const ICON_MAP: Record<string, React.ReactNode> = {
@@ -18,6 +18,7 @@ const ICON_MAP: Record<string, React.ReactNode> = {
   UserCog: <UserCog size={18} />,
   ShieldCheck: <ShieldCheck size={18} />,
   Settings: <Settings size={18} />,
+  Bell: <Bell size={18} />,
 };
 
 interface SidebarProps {
@@ -39,12 +40,12 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   return (
     <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
       <div className="sidebar-logo">
-        <div className="sidebar-logo-icon">
-          <Sun size={20} color="#fff" />
+        <div className="sidebar-logo-icon" style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-gold))' }}>
+          <Cpu size={20} color="#fff" />
         </div>
         <div className="sidebar-logo-text">
-          <span className="sidebar-logo-title">Aadhan Solar</span>
-          <span className="sidebar-logo-subtitle">Management Portal</span>
+          <span className="sidebar-logo-title" style={{ letterSpacing: '0.05em' }}>ZSmart</span>
+          <span className="sidebar-logo-subtitle">Enterprise Portal</span>
         </div>
         <button className="btn-icon mobile-only" onClick={onClose} style={{ marginLeft: 'auto', color: '#fff' }}>
           <X size={20} />

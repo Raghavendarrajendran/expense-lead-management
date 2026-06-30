@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getLeadReports } from '../../api/reports.api';
 import { getUsers } from '../../api/users.api';
 import { useAuth } from '../../contexts/AuthContext';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { EChart, CHART_COLORS, TOOLTIP_STYLE, AXIS_LABEL_STYLE, AXIS_LINE_STYLE, SPLIT_LINE_STYLE, gradientBar } from '../../components/charts/EChart';
 import { Download, Calendar, Filter, X } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -42,7 +42,7 @@ export const LeadReports = () => {
       toast.error('No lead records to export');
       return;
     }
-    const headers = ['Lead ID', 'Customer Name', 'Mobile', 'Email', 'Customer Type', 'Requirement', 'Location', 'City', 'State', 'Electricity Bill Amount', 'Solar Capacity', 'Lead Source', 'Assigned Executive', 'Status', 'Created Date'];
+    const headers = ['Lead ID', 'Customer Name', 'Mobile', 'Email', 'Customer Type', 'Requirement', 'Location', 'City', 'State', 'Project Budget', 'Project Scale', 'Lead Source', 'Assigned Executive', 'Status', 'Created Date'];
     const rows = data.leads.map((l: any) => [
       l.id,
       l.customerName,
@@ -53,8 +53,8 @@ export const LeadReports = () => {
       l.location,
       l.city,
       l.state,
-      l.electricityBillAmount,
-      l.expectedSolarCapacity,
+      l.projectBudget,
+      l.projectScale,
       l.leadSource,
       l.assignedExecutiveName || 'Unassigned',
       l.status,
@@ -66,7 +66,7 @@ export const LeadReports = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.setAttribute('href', url);
-    link.setAttribute('download', `AadhanSolar_LeadsReport_${new Date().toISOString().split('T')[0]}.csv`);
+    link.setAttribute('download', `ZSmart_LeadsReport_${new Date().toISOString().split('T')[0]}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -87,24 +87,24 @@ export const LeadReports = () => {
     const htmlContent = `
       <html>
         <head>
-          <title>Aadhan Solar - Leads Report</title>
+          <title>ZSmart - Leads Report</title>
           <style>
             body { font-family: 'Helvetica Neue', Arial, sans-serif; padding: 20px; color: #333; }
-            h1 { color: #1E3A5F; margin-bottom: 5px; }
+            h1 { color: #2563EB; margin-bottom: 5px; }
             h2 { color: #666; font-size: 14px; font-weight: normal; margin-top: 0; margin-bottom: 20px; }
             table { width: 100%; border-collapse: collapse; margin-top: 20px; }
             th, td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 12px; }
-            th { background-color: #f5f5f5; color: #1E3A5F; font-weight: bold; }
+            th { background-color: #f5f5f5; color: #0F172A; font-weight: bold; }
             tr:nth-child(even) { background-color: #fafafa; }
             .badge { display: inline-block; padding: 3px 6px; border-radius: 10px; font-size: 10px; font-weight: bold; background: #e2e8f0; color: #333; }
             .summary-box { display: flex; gap: 20px; margin-bottom: 20px; }
             .summary-card { border: 1px solid #ddd; padding: 10px 15px; border-radius: 5px; min-width: 120px; }
             .summary-label { font-size: 10px; color: #888; text-transform: uppercase; }
-            .summary-value { font-size: 20px; font-weight: bold; color: #1E3A5F; }
+            .summary-value { font-size: 20px; font-weight: bold; color: #2563EB; }
           </style>
         </head>
         <body>
-          <h1>Aadhan Solar</h1>
+          <h1>ZSmart</h1>
           <h2>Leads Pipeline Report — Generated on ${new Date().toLocaleDateString()}</h2>
           
           <div class="summary-box">
@@ -167,12 +167,92 @@ export const LeadReports = () => {
       case 'New': return 'badge-new';
       case 'Assigned': return 'badge-assigned';
       case 'Contacted': return 'badge-contacted';
-      case 'Site Visit Scheduled': return 'badge-scheduled';
-      case 'Site Survey Completed': return 'badge-completed';
+      case 'Field Visit Scheduled': return 'badge-scheduled';
+      case 'Field Visit Completed': return 'badge-completed';
       case 'Converted': return 'badge-converted';
       case 'Lost': return 'badge-lost';
       default: return 'badge-draft';
     }
+  };
+
+  // ECharts Option builders
+  const sourceEntries = data?.bySource ? Object.entries(data.bySource as Record<string, number>) : [];
+  const statusEntries = data?.byStatus ? Object.entries(data.byStatus as Record<string, number>) : [];
+
+  const sourceChartOption = {
+    tooltip: {
+      trigger: 'axis' as const,
+      axisPointer: { type: 'shadow' as const },
+      ...TOOLTIP_STYLE,
+      formatter: (params: any) => {
+        const p = params[0];
+        return `<b>${p.name}</b><br/>Leads: <b style="color:${CHART_COLORS[0]}">${p.value}</b>`;
+      },
+    },
+    grid: { left: 16, right: 16, top: 16, bottom: 24, containLabel: true },
+    xAxis: {
+      type: 'category' as const,
+      data: sourceEntries.map(([k]) => k),
+      axisLabel: AXIS_LABEL_STYLE,
+      axisTick: { show: false },
+      axisLine: AXIS_LINE_STYLE,
+    },
+    yAxis: {
+      type: 'value' as const,
+      axisLabel: AXIS_LABEL_STYLE,
+      splitLine: SPLIT_LINE_STYLE,
+      axisLine: { show: false },
+    },
+    series: [{
+      type: 'bar' as const,
+      data: sourceEntries.map(([, v], i) => ({
+        value: v,
+        itemStyle: {
+          color: gradientBar(CHART_COLORS[i % CHART_COLORS.length]),
+          borderRadius: [6, 6, 0, 0] as [number, number, number, number],
+        },
+      })),
+      barMaxWidth: 40,
+      emphasis: { itemStyle: { shadowBlur: 10, shadowColor: 'rgba(37,99,235,0.3)' } },
+    }],
+  };
+
+  const statusChartOption = {
+    tooltip: {
+      trigger: 'axis' as const,
+      axisPointer: { type: 'shadow' as const },
+      ...TOOLTIP_STYLE,
+      formatter: (params: any) => {
+        const p = params[0];
+        return `<b>${p.name}</b><br/>Leads: <b style="color:${CHART_COLORS[1]}">${p.value}</b>`;
+      },
+    },
+    grid: { left: 16, right: 16, top: 16, bottom: 24, containLabel: true },
+    xAxis: {
+      type: 'category' as const,
+      data: statusEntries.map(([k]) => k),
+      axisLabel: AXIS_LABEL_STYLE,
+      axisTick: { show: false },
+      axisLine: AXIS_LINE_STYLE,
+    },
+    yAxis: {
+      type: 'value' as const,
+      axisLabel: AXIS_LABEL_STYLE,
+      splitLine: SPLIT_LINE_STYLE,
+      axisLine: { show: false },
+    },
+    series: [{
+      type: 'bar' as const,
+      data: statusEntries.map(([, v], i) => ({
+        value: v,
+        itemStyle: {
+          color: gradientBar(CHART_COLORS[(i + 3) % CHART_COLORS.length]),
+          borderRadius: [6, 6, 0, 0] as [number, number, number, number],
+        },
+      })),
+      barMaxWidth: 40,
+      emphasis: { itemStyle: { shadowBlur: 10, shadowColor: 'rgba(6,182,212,0.3)' } },
+    }],
   };
 
   return (
@@ -180,7 +260,7 @@ export const LeadReports = () => {
       <div className="page-header">
         <div className="page-header-left">
           <h1 className="page-title">Lead Source & Status Reports</h1>
-          <p className="page-subtitle">Analyze solar pipeline, conversions, and metrics.</p>
+          <p className="page-subtitle">Analyze leads pipeline, conversions, and metrics.</p>
         </div>
         {hasPermission('mod_reports', 'export') && (
           <div className="page-actions">
@@ -246,7 +326,7 @@ export const LeadReports = () => {
 
       {loading ? (
         <div className="flex-center" style={{ minHeight: '40vh' }}>
-          <div className="spinner" style={{ borderColor: 'rgba(249,115,22,.3)', borderTopColor: 'var(--color-primary)' }} />
+          <div className="spinner" style={{ borderColor: 'rgba(37,99,235,.2)', borderTopColor: '#2563EB', width: 36, height: 36 }} />
         </div>
       ) : data ? (
         <>
@@ -262,7 +342,7 @@ export const LeadReports = () => {
               <div className="stat-card-content">
                 <div className="stat-card-label">Converted Leads</div>
                 <div className="stat-card-value">{data.converted}</div>
-                <div className="stat-card-sub">Solar sales conversions</div>
+                <div className="stat-card-sub">Total sales conversions</div>
               </div>
             </div>
             <div className="stat-card">
@@ -276,33 +356,15 @@ export const LeadReports = () => {
 
           <div className="grid-cols-2 mb-4">
             <div className="card">
-              <h3 style={{ marginBottom: '16px', fontWeight: 700 }}>Lead Source Breakdown</h3>
-              <div style={{ height: '240px' }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={Object.keys(data.bySource || {}).map(k => ({ name: k, count: data.bySource[k] }))}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Bar dataKey="count" fill="var(--color-primary)" radius={[4, 4, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+              <h3 style={{ marginBottom: '4px', fontWeight: 700, fontSize: 15 }}>Lead Source Breakdown</h3>
+              <p style={{ fontSize: 12, color: '#94A3B8', marginBottom: 16 }}>Leads classified by acquisition source</p>
+              <EChart option={sourceChartOption} height={240} />
             </div>
 
             <div className="card">
-              <h3 style={{ marginBottom: '16px', fontWeight: 700 }}>Lead Status Distribution</h3>
-              <div style={{ height: '240px' }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={Object.keys(data.byStatus || {}).map(k => ({ name: k, count: data.byStatus[k] }))}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Bar dataKey="count" fill="var(--color-navy)" radius={[4, 4, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+              <h3 style={{ marginBottom: '4px', fontWeight: 700, fontSize: 15 }}>Lead Status Distribution</h3>
+              <p style={{ fontSize: 12, color: '#94A3B8', marginBottom: 16 }}>Lead count per stage in pipeline</p>
+              <EChart option={statusChartOption} height={240} />
             </div>
           </div>
 

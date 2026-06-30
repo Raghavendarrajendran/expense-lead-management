@@ -1,9 +1,16 @@
 import { Injectable, NotFoundException, ForbiddenException, BadRequestException } from '@nestjs/common';
 import { InMemoryStore } from '../store/in-memory.store';
+import { NotificationsService } from '../notifications/notifications.service';
+import { NotificationType } from '../notifications/enums/notification-type.enum';
+import { NotificationChannel } from '../notifications/enums/notification-channel.enum';
+import { NotificationPriority } from '../notifications/enums/notification-priority.enum';
 
 @Injectable()
 export class ExpensesService {
-  constructor(private readonly store: InMemoryStore) {}
+  constructor(
+    private readonly store: InMemoryStore,
+    private readonly notificationsService: NotificationsService,
+  ) {}
 
   findAll(query: any, user: any) {
     let expenses = this.store.getExpenses();
@@ -70,6 +77,24 @@ export class ExpensesService {
       status: 'Pending Team Lead Approval',
       history: [],
     });
+
+    // Notify team lead and manager about new expense submission
+    const execUser = this.store.getUserById(exp.executiveId);
+    const recipients: string[] = [];
+    if (execUser?.teamLeadId) recipients.push(execUser.teamLeadId);
+    if (execUser?.managerId) recipients.push(execUser.managerId);
+    if (recipients.length > 0) {
+      this.notificationsService.notifyUsers(recipients, {
+        title: 'Expense Claim Submitted',
+        message: `${exp.executiveName} submitted an expense claim of ₹${exp.amount} (${exp.category}) for your approval.`,
+        type: NotificationType.EXPENSE_SUBMITTED,
+        priority: NotificationPriority.HIGH,
+        module: 'Expense Management',
+        referenceId: id,
+        actionUrl: `/approvals`,
+        channel: [NotificationChannel.IN_APP, NotificationChannel.EMAIL],
+      });
+    }
 
     return updated;
   }

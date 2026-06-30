@@ -76,8 +76,8 @@ export const LeadList = () => {
       case 'New': return 'badge-new';
       case 'Assigned': return 'badge-assigned';
       case 'Contacted': return 'badge-contacted';
-      case 'Site Visit Scheduled': return 'badge-scheduled';
-      case 'Site Survey Completed': return 'badge-completed';
+      case 'Field Visit Scheduled': return 'badge-scheduled';
+      case 'Field Visit Completed': return 'badge-completed';
       case 'Quotation Shared': return 'badge-scheduled';
       case 'Negotiation': return 'badge-contacted';
       case 'Converted': return 'badge-converted';
@@ -91,7 +91,7 @@ export const LeadList = () => {
       <div className="page-header">
         <div className="page-header-left">
           <h1 className="page-title">Lead Management</h1>
-          <p className="page-subtitle">Track, assign, and convert solar prospects.</p>
+          <p className="page-subtitle">Track, assign, and convert business prospects.</p>
         </div>
         {hasPermission('mod_leads', 'create') && (
           <div className="page-actions">
@@ -120,8 +120,8 @@ export const LeadList = () => {
               <option value="New">New</option>
               <option value="Assigned">Assigned</option>
               <option value="Contacted">Contacted</option>
-              <option value="Site Visit Scheduled">Site Visit Scheduled</option>
-              <option value="Site Survey Completed">Site Survey Completed</option>
+              <option value="Field Visit Scheduled">Field Visit Scheduled</option>
+              <option value="Field Visit Completed">Field Visit Completed</option>
               <option value="Quotation Shared">Quotation Shared</option>
               <option value="Negotiation">Negotiation</option>
               <option value="Converted">Converted</option>
@@ -155,7 +155,7 @@ export const LeadList = () => {
               <tr>
                 <th>Customer Details</th>
                 <th>Requirement</th>
-                <th>Electricity Bill</th>
+                <th>Project Budget</th>
                 <th>Assigned Exec</th>
                 <th>Status</th>
                 <th>Follow Up Date</th>
@@ -179,8 +179,8 @@ export const LeadList = () => {
                       <div className="text-muted" style={{ fontSize: '12px' }}>{lead.customerType} | {lead.city}</div>
                     </td>
                     <td>
-                      <div style={{ fontWeight: 600 }}>₹{lead.electricityBillAmount}</div>
-                      <div className="text-muted" style={{ fontSize: '12px' }}>Exp: {lead.expectedSolarCapacity}</div>
+                      <div style={{ fontWeight: 600 }}>₹{lead.projectBudget}</div>
+                      <div className="text-muted" style={{ fontSize: '12px' }}>Scale: {lead.projectScale}</div>
                     </td>
                     <td>
                       {lead.assignedExecutiveName ? (

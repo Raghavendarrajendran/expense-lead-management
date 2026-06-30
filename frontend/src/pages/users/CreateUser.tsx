@@ -66,7 +66,7 @@ export const CreateUser = () => {
       <div className="page-header">
         <div className="page-header-left">
           <h1 className="page-title">Create User Account</h1>
-          <p className="page-subtitle">Configure login credentials and details for solar executives & finance staff.</p>
+          <p className="page-subtitle">Configure login credentials and details for field executives & finance staff.</p>
         </div>
       </div>
 
@@ -91,7 +91,7 @@ export const CreateUser = () => {
                 type="email"
                 name="email"
                 className="form-input"
-                placeholder="user@aadhansolar.com"
+                placeholder="user@zsmart.com"
                 value={formData.email}
                 onChange={handleChange}
                 required
@@ -117,7 +117,7 @@ export const CreateUser = () => {
                 type="text"
                 name="designation"
                 className="form-input"
-                placeholder="e.g. Senior Solar Engineer"
+                placeholder="e.g. Senior Project Manager"
                 value={formData.designation}
                 onChange={handleChange}
               />

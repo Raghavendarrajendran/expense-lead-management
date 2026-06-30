@@ -10,9 +10,13 @@ import { FinanceModule } from './finance/finance.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { ReportsModule } from './reports/reports.module';
 import { ZohoModule } from './zoho/zoho.module';
+import { EmailModule } from './email/email.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
+    EmailModule,
+    NotificationsModule,
     AuthModule,
     UsersModule,
     RolesModule,
@@ -27,3 +31,4 @@ import { ZohoModule } from './zoho/zoho.module';
   ],
 })
 export class AppModule {}
+

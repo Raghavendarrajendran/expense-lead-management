@@ -8,6 +8,7 @@ import { LEADS_MOCK, Lead } from '../mock/leads.mock';
 import { EXPENSES_MOCK, Expense } from '../mock/expenses.mock';
 import { SITE_VISITS_MOCK, SiteVisit } from '../mock/site-visits.mock';
 import { APPROVALS_MOCK, ApprovalRecord } from '../mock/approvals.mock';
+import { Notification } from '../notifications/interfaces/notification.interface';
 
 export interface RoleLimit {
   roleId: string;
@@ -36,6 +37,7 @@ export class InMemoryStore {
   private expenses: Expense[] = [...EXPENSES_MOCK];
   private siteVisits: SiteVisit[] = [...SITE_VISITS_MOCK];
   private approvals: ApprovalRecord[] = [...APPROVALS_MOCK];
+  private notifications: Notification[] = [];
 
   // ── Roles ───────────────────────────────────────────────────────────
   getRoles(): Role[] { return this.roles; }
@@ -174,5 +176,32 @@ export class InMemoryStore {
     }
     this.roleLimits[idx] = { ...this.roleLimits[idx], ...data };
     return this.roleLimits[idx];
+  }
+
+  // ── Notifications ───────────────────────────────────────────────────
+  getNotifications(): Notification[] { return this.notifications; }
+  getNotificationById(id: string): Notification | undefined { return this.notifications.find(n => n.id === id); }
+  createNotification(data: Partial<Notification>): Notification {
+    const notif: Notification = {
+      id: `not_${uuidv4()}`,
+      isRead: false,
+      createdAt: new Date().toISOString(),
+      receiverIds: [],
+      channel: [],
+      ...data,
+    } as Notification;
+    this.notifications.push(notif);
+    return notif;
+  }
+  updateNotification(id: string, data: Partial<Notification>): Notification | null {
+    const idx = this.notifications.findIndex(n => n.id === id);
+    if (idx === -1) return null;
+    this.notifications[idx] = { ...this.notifications[idx], ...data };
+    return this.notifications[idx];
+  }
+  deleteNotification(id: string): boolean {
+    const len = this.notifications.length;
+    this.notifications = this.notifications.filter(n => n.id !== id);
+    return this.notifications.length < len;
   }
 }

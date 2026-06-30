@@ -62,7 +62,7 @@ export const SubmitExpense = () => {
     setCloseKm(c);
     const diff = c - openKm;
     if (diff > 0) {
-      // Automatic approximation of petrol amount for Solar Executives: e.g. Rs. 4 per KM rate
+      // Automatic approximation of petrol amount for Field Executives: e.g. Rs. 4 per KM rate
       setAmount(diff * 4);
     }
   };
@@ -246,7 +246,7 @@ export const SubmitExpense = () => {
 
           <div className="form-group">
             <label className="form-label">Purpose of Visit</label>
-            <input type="text" className="form-input" placeholder="e.g. Roof inspection survey" value={purposeOfVisit} onChange={e => setPurposeOfVisit(e.target.value)} />
+            <input type="text" className="form-input" placeholder="e.g. Site visit inspection" value={purposeOfVisit} onChange={e => setPurposeOfVisit(e.target.value)} />
           </div>
 
           <div className="form-grid">
