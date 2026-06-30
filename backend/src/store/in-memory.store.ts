@@ -37,7 +37,94 @@ export class InMemoryStore {
   private expenses: Expense[] = [...EXPENSES_MOCK];
   private siteVisits: SiteVisit[] = [...SITE_VISITS_MOCK];
   private approvals: ApprovalRecord[] = [...APPROVALS_MOCK];
-  private notifications: Notification[] = [];
+  private notifications: Notification[] = [
+    {
+      id: 'notif_1',
+      title: 'New Lead Assigned',
+      message: 'A new lead "Acme Corp Survey" has been assigned to you.',
+      type: 'LEAD_ASSIGNED' as any,
+      channel: ['IN_APP'] as any,
+      priority: 'HIGH' as any,
+      receiverIds: ['usr_exec'],
+      module: 'Lead Management',
+      referenceId: 'lead_1',
+      actionUrl: '/leads',
+      isRead: false,
+      createdAt: new Date(Date.now() - 10 * 60 * 1000).toISOString()
+    },
+    {
+      id: 'notif_2',
+      title: 'Follow-up Scheduled',
+      message: 'Follow-up with Arjun Das is scheduled for tomorrow.',
+      type: 'FOLLOW_UP_REMINDER' as any,
+      channel: ['IN_APP'] as any,
+      priority: 'MEDIUM' as any,
+      receiverIds: ['usr_exec'],
+      module: 'Lead Management',
+      isRead: false,
+      createdAt: new Date(Date.now() - 30 * 60 * 1000).toISOString()
+    },
+    {
+      id: 'notif_3',
+      title: 'Expense Claim Approved',
+      message: 'Your claim for Petrol Bill (₹1,200) has been approved by Ravi Kumar.',
+      type: 'EXPENSE_APPROVED' as any,
+      channel: ['IN_APP'] as any,
+      priority: 'LOW' as any,
+      receiverIds: ['usr_exec'],
+      module: 'Expense Management',
+      isRead: true,
+      createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString()
+    },
+    {
+      id: 'notif_4',
+      title: 'New Expense Claim Submitted',
+      message: 'Arjun Das has submitted an expense claim of ₹3,400 for Petrol Bill.',
+      type: 'EXPENSE_SUBMITTED' as any,
+      channel: ['IN_APP'] as any,
+      priority: 'HIGH' as any,
+      receiverIds: ['usr_teamlead', 'usr_manager'],
+      module: 'Approvals',
+      isRead: false,
+      createdAt: new Date(Date.now() - 15 * 60 * 1000).toISOString()
+    },
+    {
+      id: 'notif_5',
+      title: 'Action Required: Verification Queue',
+      message: 'Manager approved claims are waiting for Finance verification.',
+      type: 'FINANCE_VERIFIED' as any,
+      channel: ['IN_APP'] as any,
+      priority: 'HIGH' as any,
+      receiverIds: ['usr_finance'],
+      module: 'Finance',
+      isRead: false,
+      createdAt: new Date(Date.now() - 45 * 60 * 1000).toISOString()
+    },
+    {
+      id: 'notif_6',
+      title: 'New User Registered',
+      message: 'A new User account for Meena Sharma (Finance) has been created.',
+      type: 'ADMIN_ANNOUNCEMENT' as any,
+      channel: ['IN_APP'] as any,
+      priority: 'LOW' as any,
+      receiverIds: ['usr_admin'],
+      module: 'User Management',
+      isRead: false,
+      createdAt: new Date(Date.now() - 1 * 60 * 60 * 1000).toISOString()
+    },
+    {
+      id: 'notif_7',
+      title: 'System Update Completed',
+      message: 'ZSmart has been upgraded to v1.2.0 with premium ECharts and Notification modules.',
+      type: 'ADMIN_ANNOUNCEMENT' as any,
+      channel: ['IN_APP'] as any,
+      priority: 'MEDIUM' as any,
+      receiverIds: ['usr_admin', 'usr_manager', 'usr_teamlead', 'usr_exec', 'usr_finance'],
+      module: 'Admin Announcements',
+      isRead: false,
+      createdAt: new Date(Date.now() - 5 * 60 * 1000).toISOString()
+    }
+  ];
 
   // ── Roles ───────────────────────────────────────────────────────────
   getRoles(): Role[] { return this.roles; }
