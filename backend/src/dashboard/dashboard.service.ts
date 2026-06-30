@@ -58,6 +58,7 @@ export class DashboardService {
         submittedExpenses: myExpenses.filter(e => e.status !== 'Draft').length,
         approvedExpenses: myExpenses.filter(e => e.status === 'Manager Approved' || e.status === 'Finance Verified').length,
         paidReimbursements: myExpenses.filter(e => e.status === 'Paid').length,
+        leadsByStatus: this.groupBy(myLeads, 'status'),
         myExpensesByStatus: this.groupBy(myExpenses, 'status'),
       };
     }
