@@ -54,4 +54,32 @@ export const ROLES_SEED: Role[] = [
     isSystem: true,
     createdAt: '2024-01-01T00:00:00Z',
   },
+  // ── Pre-Sales Roles ─────────────────────────────────────────────
+  {
+    id: 'role_sales_executive',
+    name: 'sales_executive',
+    displayName: 'Sales Executive',
+    description: 'Manages pre-sales pipeline: lead qualification, proposals, customer follow-ups',
+    isActive: true,
+    isSystem: true,
+    createdAt: '2024-01-01T00:00:00Z',
+  },
+  {
+    id: 'role_engineering_user',
+    name: 'engineering_user',
+    displayName: 'Engineering User',
+    description: 'Performs site inspections, engineering surveys, array layouts, sizing reports, and BOM',
+    isActive: true,
+    isSystem: true,
+    createdAt: '2024-01-01T00:00:00Z',
+  },
+  {
+    id: 'role_commercial_user',
+    name: 'commercial_user',
+    displayName: 'Commercial User',
+    description: 'Handles cost estimation, proposal approval, payment tracking, and order finalization',
+    isActive: true,
+    isSystem: true,
+    createdAt: '2024-01-01T00:00:00Z',
+  },
 ];

@@ -6,6 +6,7 @@ import {
   TrendingUp, Award, Clock, FileText, Wallet, Calendar, AlertTriangle, MapPin
 } from 'lucide-react';
 import { EChart, CHART_COLORS, TOOLTIP_STYLE, AXIS_LABEL_STYLE, AXIS_LINE_STYLE, SPLIT_LINE_STYLE, gradientBar } from '../../components/charts/EChart';
+import { PreSalesDashboard } from '../presales/PreSalesDashboard';
 
 export const Dashboard = () => {
   const { user } = useAuth();
@@ -30,6 +31,10 @@ export const Dashboard = () => {
   if (!stats) return <div className="card">Error loading dashboard data.</div>;
 
   const role = user?.role?.name;
+
+  if (role === 'sales_executive' || role === 'engineering_user' || role === 'commercial_user') {
+    return <PreSalesDashboard />;
+  }
 
   // ── Chart data ────────────────────────────────────────────────
   const leadStatusEntries = stats.leadsByStatus
@@ -241,6 +246,44 @@ export const Dashboard = () => {
               </div>
             </div>
           </div>
+
+          {/* Pre-Sales Pipeline Summary */}
+          <div className="mb-4">
+            <h3 style={{ marginBottom: '12px', fontWeight: 700, fontSize: 14, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#64748B' }}>
+              Solar Pre-Sales CRM Summary
+            </h3>
+            <div className="grid-cols-4">
+              <div className="stat-card" style={{ borderTop: '3px solid #2563EB' }}>
+                <div className="stat-card-content">
+                  <div className="stat-card-label">Pre-Sales Leads</div>
+                  <div className="stat-card-value" style={{ fontSize: '20px' }}>{stats.psStats?.totalPsLeads || 0}</div>
+                  <div className="stat-card-sub">Solar pipeline</div>
+                </div>
+              </div>
+              <div className="stat-card" style={{ borderTop: '3px solid #F97316' }}>
+                <div className="stat-card-content">
+                  <div className="stat-card-label">TCO Proposals</div>
+                  <div className="stat-card-value" style={{ fontSize: '20px' }}>{stats.psStats?.totalProposals || 0}</div>
+                  <div className="stat-card-sub">Drafted commercial quotes</div>
+                </div>
+              </div>
+              <div className="stat-card" style={{ borderTop: '3px solid #10B981' }}>
+                <div className="stat-card-content">
+                  <div className="stat-card-label">Secured Bookings</div>
+                  <div className="stat-card-value" style={{ fontSize: '18px' }}>₹{(stats.psStats?.totalOrderValue || 0).toLocaleString()}</div>
+                  <div className="stat-card-sub">{stats.psStats?.totalOrders || 0} Finalized POs</div>
+                </div>
+              </div>
+              <div className="stat-card" style={{ borderTop: '3px solid #CFFAFE' }}>
+                <div className="stat-card-content">
+                  <div className="stat-card-label">Active Pre-Sales Users</div>
+                  <div className="stat-card-value" style={{ fontSize: '20px' }}>3</div>
+                  <div className="stat-card-sub">Eng, Sales, Comm</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="grid-cols-2">
             <div className="card">
               <h3 style={{ marginBottom: '4px', fontWeight: 700, fontSize: 15 }}>Leads by Status</h3>
@@ -293,6 +336,44 @@ export const Dashboard = () => {
               </div>
             </div>
           </div>
+
+          {/* Pre-Sales Pipeline Summary */}
+          <div className="mb-4">
+            <h3 style={{ marginBottom: '12px', fontWeight: 700, fontSize: 14, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#64748B' }}>
+              Solar Pre-Sales CRM Summary
+            </h3>
+            <div className="grid-cols-4">
+              <div className="stat-card" style={{ borderTop: '3px solid #2563EB' }}>
+                <div className="stat-card-content">
+                  <div className="stat-card-label">Pre-Sales Leads</div>
+                  <div className="stat-card-value" style={{ fontSize: '20px' }}>{stats.psStats?.totalPsLeads || 0}</div>
+                  <div className="stat-card-sub">Active pipeline</div>
+                </div>
+              </div>
+              <div className="stat-card" style={{ borderTop: '3px solid #F97316' }}>
+                <div className="stat-card-content">
+                  <div className="stat-card-label">Pending Inspections</div>
+                  <div className="stat-card-value" style={{ fontSize: '20px' }}>{stats.psStats?.pendingInspections || 0}</div>
+                  <div className="stat-card-sub">Site survey requests</div>
+                </div>
+              </div>
+              <div className="stat-card" style={{ borderTop: '3px solid #10B981' }}>
+                <div className="stat-card-content">
+                  <div className="stat-card-label">Approved Proposals</div>
+                  <div className="stat-card-value" style={{ fontSize: '20px' }}>{stats.psStats?.approvedProposals || 0}</div>
+                  <div className="stat-card-sub">Signed-off TCO offers</div>
+                </div>
+              </div>
+              <div className="stat-card" style={{ borderTop: '3px solid #CFFAFE' }}>
+                <div className="stat-card-content">
+                  <div className="stat-card-label">Accepted Offers</div>
+                  <div className="stat-card-value" style={{ fontSize: '20px' }}>{stats.psStats?.acceptedProposals || 0}</div>
+                  <div className="stat-card-sub">Awaiting PO handover</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="grid-cols-2">
             <div className="card">
               <h3 style={{ marginBottom: '4px', fontWeight: 700, fontSize: 15 }}>Sales Funnel Status</h3>

@@ -11,6 +11,14 @@ export class DashboardService {
     const users = this.store.getUsers();
     const approvals = this.store.getApprovals();
 
+    // Pre-sales collections
+    const psLeads = this.store.getPresalesLeads();
+    const inspections = this.store.getSiteInspectionRequests();
+    const surveys = this.store.getEngineeringSurveys();
+    const proposals = this.store.getProposals();
+    const orders = this.store.getOrders();
+    const payments = this.store.getAdvancePayments();
+
     const roleName = user.roleName;
 
     if (roleName === 'admin') {
@@ -23,6 +31,13 @@ export class DashboardService {
         paidExpenses: expenses.filter(e => e.status === 'Paid').length,
         leadsByStatus: this.groupBy(leads, 'status'),
         expensesByCategory: this.groupBySum(expenses, 'category', 'amount'),
+        // Pre-Sales Admin Stats
+        psStats: {
+          totalPsLeads: psLeads.length,
+          totalProposals: proposals.length,
+          totalOrders: orders.length,
+          totalOrderValue: orders.reduce((sum, o) => sum + o.finalOrderValue, 0),
+        }
       };
     }
 
@@ -35,6 +50,13 @@ export class DashboardService {
         pendingExpenseApprovals: approvals.filter(a => a.currentStage === 'Manager').length,
         leadsByStatus: this.groupBy(leads, 'status'),
         expensesByCategory: this.groupBySum(expenses, 'category', 'amount'),
+        // Pre-Sales Manager Stats
+        psStats: {
+          totalPsLeads: psLeads.length,
+          pendingInspections: inspections.filter(i => i.status !== 'Completed').length,
+          approvedProposals: proposals.filter(p => p.proposalStatus === 'Approved').length,
+          acceptedProposals: proposals.filter(p => p.proposalStatus === 'Accepted').length,
+        }
       };
     }
 
@@ -71,6 +93,53 @@ export class DashboardService {
         rejectedExpenses: expenses.filter(e => e.status === 'Rejected').length,
         monthlyReimbursement: expenses.filter(e => e.status === 'Paid').reduce((sum, e) => sum + e.amount, 0),
         expensesByCategory: this.groupBySum(expenses, 'category', 'amount'),
+      };
+    }
+
+    // ── Pre-Sales Role Dashboards ────────────────────────────────────
+    if (roleName === 'sales_executive') {
+      const myLeads = psLeads.filter(l => l.assignedSalesExecId === user.sub);
+      const myProposals = proposals.filter(p => p.createdBy === user.sub);
+      const myOrders = orders.filter(o => o.createdBy === user.sub);
+      return {
+        totalPsLeads: myLeads.length,
+        qualifiedLeads: myLeads.filter(l => l.qualificationStatus === 'Qualified').length,
+        pendingInspections: inspections.filter(i => i.status !== 'Completed').length,
+        totalProposals: myProposals.length,
+        proposalsApproved: myProposals.filter(p => p.proposalStatus === 'Approved').length,
+        proposalsAccepted: myProposals.filter(p => p.proposalStatus === 'Accepted').length,
+        totalOrders: myOrders.length,
+        orderValue: myOrders.reduce((sum, o) => sum + o.finalOrderValue, 0),
+        leadsByStatus: this.groupBy(myLeads, 'qualificationStatus'),
+        proposalsByStatus: this.groupBy(myProposals, 'proposalStatus'),
+      };
+    }
+
+    if (roleName === 'engineering_user') {
+      const myInspections = inspections.filter(i => i.assignedEngineerId === user.sub);
+      const mySurveys = surveys.filter(s => s.engineerId === user.sub);
+      return {
+        assignedInspections: myInspections.length,
+        completedInspections: myInspections.filter(i => i.status === 'Completed').length,
+        surveysPerformed: mySurveys.length,
+        pendingLayouts: this.store.getArrayLayouts().filter(a => a.designStatus === 'Draft' || a.designStatus === 'Revision Required').length,
+        pendingBoms: this.store.getBoms().filter(b => b.bomStatus === 'Draft' || b.bomStatus === 'Revision Required').length,
+        inspectionsByStatus: this.groupBy(myInspections, 'status'),
+      };
+    }
+
+    if (roleName === 'commercial_user') {
+      const pendingCosting = psLeads.filter(l => l.qualificationStatus === 'Qualified' && !this.store.getCostEstimations().some(ce => ce.leadId === l.id)).length;
+      const pendingApprovals = this.store.getProposalApprovals().filter(a => a.stage === 'Commercial Admin' && a.status === 'Pending').length;
+      return {
+        pendingCosting,
+        pendingApprovals,
+        totalOrders: orders.length,
+        totalOrderValue: orders.reduce((sum, o) => sum + o.finalOrderValue, 0),
+        duePayments: payments.filter(p => p.paymentStatus === 'Due' || p.paymentStatus === 'Overdue').length,
+        paymentCollected: payments.filter(p => p.paymentStatus === 'Received').reduce((sum, p) => sum + p.amount, 0),
+        ordersByStatus: this.groupBy(orders, 'orderStatus'),
+        paymentsByStatus: this.groupBy(payments, 'paymentStatus'),
       };
     }
 

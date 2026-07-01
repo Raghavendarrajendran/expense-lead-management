@@ -160,6 +160,59 @@ a { text-decoration: none; color: inherit; }
   scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.08) transparent;
 }
 
+.sidebar-section {
+  margin-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+  padding-bottom: 8px;
+}
+
+.sidebar-section:last-child {
+  border-bottom: none;
+}
+
+.sidebar-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 10px;
+  background: none;
+  border: none;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sidebar-section-header:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.sidebar-section-header .chevron {
+  font-size: 8px;
+  transition: transform 0.2s ease;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-section-header:hover .chevron {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.sidebar-section-header .chevron.open {
+  transform: rotate(180deg);
+}
+
+.sidebar-section-items {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
 .sidebar-section-label {
   font-size: 9.5px; font-weight: 700;
   color: rgba(255,255,255,.25);
@@ -815,4 +868,100 @@ tbody td {
 .tablet-hide { display: flex; flex-direction: column; }
 @media (max-width: 900px) {
   .tablet-hide { display: none !important; }
+}
+
+/* ── Interactive Solar Pipeline Tracker ─────────────────────── */
+.pipeline-tracker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  padding: 20px 24px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  overflow-x: auto;
+}
+
+.pipeline-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  text-align: center;
+  min-width: 90px;
+}
+
+.pipeline-connector {
+  position: absolute;
+  top: 36px;
+  left: 6%;
+  right: 6%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 1;
+}
+
+.pipeline-connector-progress {
+  height: 100%;
+  background: linear-gradient(90deg, #10B981, #2563EB);
+  transition: width 0.3s ease;
+}
+
+.step-node {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 12px;
+  transition: all 0.25s ease;
+  margin-bottom: 8px;
+  border: 2px solid #1E293B;
+}
+
+.step-node.completed {
+  background: #10B981;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+.step-node.active {
+  background: #2563EB;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.5);
+  animation: pulseNode 2s infinite;
+}
+
+.step-node.pending {
+  background: #475569;
+  color: #94A3B8;
+}
+
+.step-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.step-label.active {
+  color: #60A5FA;
+}
+
+.step-label.completed {
+  color: #10B981;
+}
+
+@keyframes pulseNode {
+  0% { transform: scale(1); box-shadow: 0 0 10px rgba(37, 99, 235, 0.4); }
+  50% { transform: scale(1.08); box-shadow: 0 0 16px rgba(37, 99, 235, 0.6); }
+  100% { transform: scale(1); box-shadow: 0 0 10px rgba(37, 99, 235, 0.4); }
 }

@@ -90,22 +90,27 @@ export const Login = () => {
         </form>
 
         <div style={{ marginTop: 28, padding: '16px', background: 'var(--color-surface-2)', borderRadius: 'var(--radius-md)', fontSize: 12 }}>
-          <p style={{ fontWeight: 700, marginBottom: 8, color: 'var(--color-text-secondary)' }}>Demo Credentials</p>
-          {[
-            { role: 'Admin', email: 'admin@zsmart.com', pwd: 'Admin@123' },
-            { role: 'Manager', email: 'manager@zsmart.com', pwd: 'Manager@123' },
-            { role: 'Team Lead', email: 'teamlead@zsmart.com', pwd: 'Lead@123' },
-            { role: 'Field Exec', email: 'exec@zsmart.com', pwd: 'Exec@123' },
-            { role: 'Finance', email: 'finance@zsmart.com', pwd: 'Finance@123' },
-          ].map(c => (
-            <div key={c.role} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-              <span style={{ color: 'var(--color-text-muted)', fontWeight: 600 }}>{c.role}:</span>
-              <button style={{ color: 'var(--color-primary)', fontWeight: 600, fontSize: 12 }}
-                onClick={() => { setEmail(c.email); setPassword(c.pwd); }}>
-                {c.email}
-              </button>
-            </div>
-          ))}
+          <p style={{ fontWeight: 700, marginBottom: 8, color: 'var(--color-text-secondary)' }}>Demo Credentials (Click to Autofill)</p>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px 16px' }}>
+            {[
+              { role: 'Admin', email: 'admin@zsmart.com', pwd: 'Admin@123' },
+              { role: 'Manager', email: 'manager@zsmart.com', pwd: 'Manager@123' },
+              { role: 'Team Lead', email: 'teamlead@zsmart.com', pwd: 'Lead@123' },
+              { role: 'Field Exec', email: 'exec@zsmart.com', pwd: 'Exec@123' },
+              { role: 'Finance', email: 'finance@zsmart.com', pwd: 'Finance@123' },
+              { role: 'Sales Exec', email: 'sales@zsmart.com', pwd: 'Sales@123' },
+              { role: 'Engineer', email: 'engineer@zsmart.com', pwd: 'Engg@123' },
+              { role: 'Commercial', email: 'commercial@zsmart.com', pwd: 'Comm@123' },
+            ].map(c => (
+              <div key={c.role} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', background: 'rgba(0,0,0,0.02)', padding: '6px', borderRadius: '4px' }}>
+                <span style={{ color: 'var(--color-text-muted)', fontWeight: 700, fontSize: '10px', textTransform: 'uppercase' }}>{c.role}</span>
+                <button type="button" style={{ color: 'var(--color-primary)', fontWeight: 600, fontSize: '11px', textAlign: 'left', padding: 0 }}
+                  onClick={() => { setEmail(c.email); setPassword(c.pwd); }}>
+                  {c.email}
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

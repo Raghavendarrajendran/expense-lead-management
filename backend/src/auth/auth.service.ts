@@ -88,6 +88,24 @@ export class AuthService {
       mod_roles:      { id: 'mod_roles', label: 'Roles & Permissions', path: '/roles', icon: 'ShieldCheck' },
       mod_settings:   { id: 'mod_settings', label: 'Settings', path: '/settings', icon: 'Settings' },
       mod_notifications: { id: 'mod_notifications', label: 'Notifications', path: '/notifications', icon: 'Bell' },
+      mod_masters: { id: 'mod_masters', label: 'Master Management', path: '/masters', icon: 'Database' },
+
+      // Pre-Sales
+      mod_ps_leads:          { id: 'mod_ps_leads', label: 'PS Qualification', path: '/presales/leads', icon: 'UserCheck' },
+      mod_ps_inspection_req: { id: 'mod_ps_inspection_req', label: 'PS Site Inspections', path: '/presales/inspection-requests', icon: 'ClipboardList' },
+      mod_ps_engineering:    { id: 'mod_ps_engineering', label: 'PS Engineering Surveys', path: '/presales/engineering-surveys', icon: 'Sun' },
+      mod_ps_array:          { id: 'mod_ps_array', label: 'PS Array Layouts', path: '/presales/array-layouts', icon: 'Zap' },
+      mod_ps_sizing:         { id: 'mod_ps_sizing', label: 'PS Sizing Reports', path: '/presales/sizing-reports', icon: 'FileText' },
+      mod_ps_bom:            { id: 'mod_ps_bom', label: 'PS BOM Management', path: '/presales/bom', icon: 'Package' },
+      mod_ps_costing:        { id: 'mod_ps_costing', label: 'PS Cost Estimation', path: '/presales/costing', icon: 'Calculator' },
+      mod_ps_proposals:      { id: 'mod_ps_proposals', label: 'PS Proposals (TCO)', path: '/presales/proposals', icon: 'FileCheck' },
+      mod_ps_approvals:      { id: 'mod_ps_approvals', label: 'PS Internal Approvals', path: '/presales/proposal-approvals', icon: 'ThumbsUp' },
+      mod_ps_revisions:      { id: 'mod_ps_revisions', label: 'PS Proposal Revisions', path: '/presales/revisions', icon: 'GitBranch' },
+      mod_ps_followups:      { id: 'mod_ps_followups', label: 'PS Follow-ups', path: '/presales/followups', icon: 'MessageSquare' },
+      mod_ps_orders:         { id: 'mod_ps_orders', label: 'PS Orders', path: '/presales/orders', icon: 'ShoppingCart' },
+      mod_ps_payments:       { id: 'mod_ps_payments', label: 'PS Payments', path: '/presales/payments', icon: 'CreditCard' },
+      mod_ps_change_requests:{ id: 'mod_ps_change_requests', label: 'PS Change Requests', path: '/presales/change-requests', icon: 'RefreshCw' },
+      mod_ps_documents:      { id: 'mod_ps_documents', label: 'PS Documents', path: '/presales/documents', icon: 'FolderOpen' },
     };
     return permissions
       .filter(p => p.actions.includes('view'))
